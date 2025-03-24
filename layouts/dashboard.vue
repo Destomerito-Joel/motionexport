@@ -14,7 +14,7 @@
 
     <div>
       <MobileNav 
-        class="sm:hidden fixed bottom-0 border border-gray-900 rounded-md w-full z-50 bg-gray-800" 
+        class="sm:hidden fixed bottom-0 border pb-2 pt-2 border-gray-900 rounded-md w-full z-30 bg-gray-800" 
         @open-modal="openModal" 
       />
     </div>
@@ -39,7 +39,7 @@
     <Teleport to="body">
       <div 
         v-if="isModalOpen" 
-        class=" z-50 inset-0 bg-black/60 h-full w-full backdrop-blur-sm flex items-center justify-center"
+        class=" "
       >
         <CreateShipment @close-modal="closeModal" />
       </div>

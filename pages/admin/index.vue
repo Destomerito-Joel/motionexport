@@ -1,12 +1,13 @@
 <template>
   <div>
     <div class="bg-gray-900 pl-20 py-2 pb-5">
-      <h1 class="text-white font-semibold">Welcome ,Admin</h1>
+      <h1 class="text-white font-semibold">Welcome, Admin</h1>
     </div>
     <div class="w-full flex justify-center -mt-3">
       <div
         class="rounded-lg w-3/4 flex flex-col md:flex-row items-center justify-center shadow-md gap-8 p-5 bg-white"
       >
+        <!-- Admin Count -->
         <div
           class="rounded-lg border flex flex-col items-center justify-center w-[75%] py-2 border-gray-600"
         >
@@ -22,9 +23,13 @@
               clip-rule="evenodd"
             />
           </svg>
-          <span>Admin(s) :</span>
+          <span>Admins: 1</span>
         </div>
-        <nuxt-link to="/admin/shipments" class="rounded-lg border flex flex-col items-center justify-center w-[75%] py-2 border-gray-600"
+
+        <!-- Shipment Count -->
+        <nuxt-link
+          to="/admin/shipments"
+          class="rounded-lg border flex flex-col items-center justify-center w-[75%] py-2 border-gray-600"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,8 +45,7 @@
             />
             <path d="M19.5 19.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z" />
           </svg>
-
-          <span>Shipments :</span>
+          <span>Shipments: {{ shipmentCount }}</span>
         </nuxt-link>
       </div>
     </div>
@@ -52,6 +56,47 @@
 definePageMeta({
   layout: "dashboard",
 });
+import { ref, onMounted } from "vue";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+// Firestore instance
+const db = getFirestore();
+
+// Reactive state
+const adminCount = ref(0);
+const shipmentCount = ref(0);
+
+// Fetch Total Users Count from Firestore
+const fetchAdminCount = async () => {
+  try {
+    const usersCollection = collection(db, "users");
+    const snapshot = await getDocs(usersCollection);
+
+    // Debugging: Check if any users are retrieved
+    console.log("Users Collection Snapshot:", snapshot.docs.map(doc => doc.data()));
+
+    adminCount.value = snapshot.size;
+  } catch (error) {
+    console.error("Error fetching admin count:", error);
+  }
+};
+
+
+// Fetch Total Shipments Count from Firestore
+const fetchShipmentsCount = async () => {
+  try {
+    const shipmentCollection = collection(db, "shipments");
+    const snapshot = await getDocs(shipmentCollection);
+    shipmentCount.value = snapshot.size; // Total number of shipments
+  } catch (error) {
+    console.error("Error fetching shipments count:", error);
+  }
+};
+
+// Fetch data when component is mounted
+onMounted(() => {
+  fetchAdminCount();
+  fetchShipmentsCount();
+});
 </script>
 
-<style lang="scss" scoped></style>

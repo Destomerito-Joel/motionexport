@@ -1,13 +1,16 @@
 <template>
-  <div  class=" items-center justify-center bg-black/60 z-50 backdrop-blur-sm ">
-    <div class="w-full bg-white py-6 px-6 rounded-lg shadow-lg ">
+  <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="relative bg-white py-6 px-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-auto">
+      <!-- Close Button -->
+      <button @click="$emit('close-modal')" class="absolute top-2 right-3 bg-red-500 px-4 py-2 text-white rounded-lg">
+        Close
+      </button>
+
       <h2 class="text-lg font-semibold">Create Shipment</h2>
       <hr class="my-3" />
-      
+
+      <!-- Form -->
       <form class="flex flex-col gap-6" @submit.prevent="createShipment">
-        <button @click="$emit('close-modal')" class="bg-red-500 px-4 py-2 text-white rounded-lg fixed top-2 right-3">
-          Close
-        </button>
         <!-- Shipper & Receiver Info -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <ShipmentSection title="Shipper Info" :fields="shipperFields" />
@@ -32,7 +35,7 @@
           <input type="file" ref="fileInput" accept="image/*" multiple @change="handleFileUpload" class="hidden" />
           <button type="button" @click="triggerFileInput" class="input px-3 cursor-pointer">Upload Images</button>
 
-          <div v-if="shipmentImages.length" class="mt-3 grid grid-cols-1 md:grid-cols-4 gap-2">
+          <div v-if="shipmentImages.length" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
             <div v-for="(image, index) in shipmentImages" :key="index" class="relative">
               <img :src="image.preview" alt="Shipment Image" class="border border-gray-300 rounded size-48 object-cover" />
               <button @click="removeImage(index)" class="absolute top-1 left-1 bg-red-700 text-white rounded-full px-2 py-1 text-xs">
@@ -56,7 +59,6 @@
         </div>
       </form>
     </div>
-    
   </div>
 </template>
 

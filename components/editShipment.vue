@@ -1,6 +1,6 @@
 <template>
-  <div class="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm" v-if="shipment">
-    <div class="md:w-3/4 w-full bg-white py-6 px-6 rounded-lg shadow-lg">
+  <div class="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm overflow-y-auto p-4" v-if="shipment">
+    <div class="relative w-full max-w-3xl bg-white py-6 px-6 rounded-lg shadow-lg max-h-[90vh] overflow-auto">
       <h2 class="text-lg font-semibold">Edit Shipment</h2>
       <hr class="my-3" />
 

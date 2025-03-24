@@ -1,11 +1,11 @@
 <template>
   <div class="w-full">
     <div
-      class="w-full font-semibold text-gray-600 flex text-xs items-center relative pl-1"
+      class="w-full font-semibold text-gray-600 py flex text-xs items-center relative pl-1"
     >
       <div class="flex justify-between px-3 text-gray-300 py-1 w-full gap-1">
         <nuxt-link to="/admin" class="hover:text-blue-400">
-          <button class="flex items-center flex-col hover:text-blue-400">
+          <button class="flex items-center flex-col hover:text-blue-400 border-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -45,7 +45,7 @@
         </button>
 
         <nuxt-link to="/admin/shipments">
-          <button class="flex items-center flex-col hover:text-blue-400">
+          <button class="flex items-center flex-col hover:text-blue-400 border-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -67,7 +67,7 @@
 
         <!-- Gallery (Emit Event) -->
 
-        <button class="flex items-center flex-col hover:text-blue-400">
+        <button class="flex items-center flex-col hover:text-blue-400 border-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

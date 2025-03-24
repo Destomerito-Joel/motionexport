@@ -4,12 +4,14 @@
       <div class="flex justify-center mb-4">
         <div class="p-3">
           <nuxt-link to="/">
-            <div class="flex flex-col w-full font-semibold mb-4 justify-center items-center py-3">
-          <div class="w-full text-white">
-            <img class="w-16" src="/images/logo.png" alt="">
-            Motion Express Way
-             </div>
-        </div>
+            <div
+              class="flex flex-col w-full font-semibold mb-4 justify-center items-center py-3"
+            >
+              <div class="w-full text-white flex flex-col justify-center items-center">
+                <img class="w-16" src="/images/logo.png" alt="" />
+                Motion Express Way
+              </div>
+            </div>
           </nuxt-link>
         </div>
       </div>
