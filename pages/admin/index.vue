@@ -54,6 +54,7 @@
 
 <script setup>
 definePageMeta({
+  middleware: 'auth',
   layout: "dashboard",
 });
 import { ref, onMounted } from "vue";

@@ -189,134 +189,114 @@
     loading.value = false;
   };
   
-  // Function to print shipment receipt as PDF
   const printReceipt = async () => {
-    try {
-      const { jsPDF } = await import('jspdf');
-      const doc = new jsPDF();
-  
-      if (!shipmentData.value) {
-        console.error("Error: shipmentData is undefined");
-        return;
-      }
-  
-      let y = 20; // Starting position
-  
-      // Title - Centered & Styled
-      doc.setFontSize(18);
-      doc.setTextColor(40, 40, 40);
-      doc.setFont("helvetica", "bold");
-      doc.text("Shipment Receipt", 105, y, { align: "center" });
-      y += 10;
-  
-      // Add a border box around the receipt
-      doc.setDrawColor(0);
-      doc.rect(10, 10, 190, 270);
-  
-      // Divider line
+  try {
+    const { jsPDF } = await import('jspdf');
+    const doc = new jsPDF();
+
+    if (!shipmentData.value) {
+      console.error("Error: shipmentData is undefined");
+      return;
+    }
+
+    let y = 20; // Starting position
+
+    // Background Style
+    doc.setFillColor(240, 240, 240); // Light gray background
+    doc.rect(5, 5, 200, 287, 'F'); // Full page background
+
+    // Title Section
+    doc.setFillColor(50, 50, 50);
+    doc.rect(10, 10, 190, 15, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("Shipment Receipt", 105, 20, { align: "center" });
+    y += 20;
+
+    // Add Border
+    doc.setDrawColor(0);
+    doc.rect(10, 10, 190, 270);
+
+    // Shipment Image (If Available) - Top Right Corner
+    if (shipmentData.value.imageUrl) {
+      const img = new Image();
+      img.src = shipmentData.value.imageUrl;
+      img.crossOrigin = "Anonymous";
+      img.onload = function () {
+        doc.addImage(img, "JPEG", 150, 15, 40, 40); // Positioned at top-right
+        generateReceiptContent(doc, y);
+      };
+    } else {
+      generateReceiptContent(doc, y);
+    }
+
+    function generateReceiptContent(doc, y) {
+      doc.setTextColor(0, 0, 0);
+      doc.setFontSize(12);
+
+      // Shipment Details
+      const details = [
+        ["Tracking ID:", shipmentData.value.trackingId || "N/A"],
+        ["Status:", shipmentData.value.status || "N/A"],
+        ["Shipment Mode:", shipmentData.value.mode || "N/A"],
+        ["Weight:", `${shipmentData.value.weight || "N/A"} kg`],
+        ["Departure Date:", shipmentData.value.departureDate || "N/A"],
+        ["Expected Delivery:", shipmentData.value.expectedDelivery || "N/A"],
+      ];
+
+      details.forEach(([label, value]) => {
+        doc.setFont("helvetica", "bold");
+        doc.text(label, 15, y);
+        doc.setFont("helvetica", "normal");
+        doc.text(value, 70, y);
+        y += 10;
+      });
+
+      y += 5;
+      doc.setDrawColor(150);
       doc.line(10, y, 200, y);
       y += 10;
-  
-      // 🚀 **Add Shipment Image** (If Available)
-      if (shipmentData.value.imageUrl) {
-        const img = new Image();
-        img.src = shipmentData.value.imageUrl;
-        img.crossOrigin = "Anonymous"; // Ensure cross-origin images work
-  
-        img.onload = function () {
-          doc.addImage(img, "JPEG", 140, 15, 50, 50); // (image, format, x, y, width, height)
-  
-          // After adding image, continue with text
-          generateReceiptContent(doc, y);
-        };
-      } else {
-        generateReceiptContent(doc, y);
-      }
-  
-      function generateReceiptContent(doc, y) {
-        // Shipment Details - Using Table Format
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-  
-        const details = [
-          ["Tracking ID:", shipmentData.value.trackingId || "N/A"],
-          ["Status:", shipmentData.value.status || "N/A"],
-          ["Shipment Mode:", shipmentData.value.mode || "N/A"],
-          ["Weight:", `${shipmentData.value.weight || "N/A"} kg`],
-          ["Departure Date:", shipmentData.value.departureDate || "N/A"],
-          ["Expected Delivery:", shipmentData.value.expectedDelivery || "N/A"],
-        ];
-  
-        details.forEach(([label, value]) => {
-          doc.setFont("helvetica", "bold");
-          doc.text(label, 15, y);
-          doc.setFont("helvetica", "normal");
-          doc.text(value, 70, y);
-          y += 10;
-        });
-  
-        // Divider
-        doc.setDrawColor(150);
-        doc.line(10, y, 200, y);
-        y += 10;
-  
-        // Shipper Details
-        doc.setFontSize(14);
+
+      // Boxed Sections for Shipper and Receiver
+      const addSection = (title, data, startY) => {
+        doc.setFillColor(220, 220, 220);
+        doc.rect(10, startY, 190, 10, 'F');
         doc.setFont("helvetica", "bold");
-        doc.text("Shipper Information", 15, y);
-        y += 8;
-  
-        doc.setFontSize(12);
-        const shipper = [
-          ["Name:", shipmentData.value.shipper?.name || "N/A"],
-          ["Address:", shipmentData.value.shipper?.address || "N/A"],
-          ["Phone:", shipmentData.value.shipper?.phoneNumber || "N/A"],
-          ["Email:", shipmentData.value.shipper?.email || "N/A"],
-        ];
-  
-        shipper.forEach(([label, value]) => {
+        doc.text(title, 15, startY + 7);
+        
+        let newY = startY + 15;
+        data.forEach(([label, value]) => {
           doc.setFont("helvetica", "bold");
-          doc.text(label, 15, y);
+          doc.text(label, 15, newY);
           doc.setFont("helvetica", "normal");
-          doc.text(value, 70, y);
-          y += 10;
+          doc.text(value, 70, newY);
+          newY += 8;
         });
-  
-        // Divider
-        doc.setDrawColor(150);
-        doc.line(10, y, 200, y);
-        y += 10;
-  
-        // Receiver Details
-        doc.setFontSize(14);
-        doc.setFont("helvetica", "bold");
-        doc.text("Receiver Information", 15, y);
-        y += 8;
-  
-        doc.setFontSize(12);
-        const receiver = [
-          ["Name:", shipmentData.value.receiver?.name || "N/A"],
-          ["Address:", shipmentData.value.receiver?.address || "N/A"],
-          ["Phone:", shipmentData.value.receiver?.phoneNumber || "N/A"],
-          ["Email:", shipmentData.value.receiver?.email || "N/A"],
-        ];
-  
-        receiver.forEach(([label, value]) => {
-          doc.setFont("helvetica", "bold");
-          doc.text(label, 15, y);
-          doc.setFont("helvetica", "normal");
-          doc.text(value, 70, y);
-          y += 10;
-        });
-  
-        // Save the PDF with a properly formatted name
-        doc.save(`Shipment_Receipt_${shipmentData.value.trackingId || "Unknown"}.pdf`);
-      }
-    } catch (error) {
-      console.error("Error generating PDF:", error);
+        return newY;
+      };
+
+      y = addSection("Shipper Information", [
+        ["Name:", shipmentData.value.shipper?.name || "N/A"],
+        ["Address:", shipmentData.value.shipper?.address || "N/A"],
+        ["Phone:", shipmentData.value.shipper?.phoneNumber || "N/A"],
+        ["Email:", shipmentData.value.shipper?.email || "N/A"]
+      ], y);
+      
+      y = addSection("Receiver Information", [
+        ["Name:", shipmentData.value.receiver?.name || "N/A"],
+        ["Address:", shipmentData.value.receiver?.address || "N/A"],
+        ["Phone:", shipmentData.value.receiver?.phoneNumber || "N/A"],
+        ["Email:", shipmentData.value.receiver?.email || "N/A"]
+      ], y + 10);
+      
+      doc.save(`Shipment_Receipt_${shipmentData.value.trackingId || "Unknown"}.pdf`);
     }
-  };
-  
+  } catch (error) {
+    console.error("Error generating PDF:", error);
+  }
+};
+
   
   
   </script>

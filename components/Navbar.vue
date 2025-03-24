@@ -7,7 +7,7 @@
         <nuxt-link  @click="toggleMenu" to="/">
           <div class="flex items-center text-xl font-bold">
           <div>
-            <img src="/images/logo.png" alt="Logo" class="w-16" />
+            <img src="/images/logo.png" alt="Logo" class="w-16 mt-2 ml-2" />
           </div>
         </div>
         </nuxt-link>
