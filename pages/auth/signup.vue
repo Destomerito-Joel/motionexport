@@ -1,15 +1,22 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-teal-950 ">
-    <Alert v-if="showAlert" :message="'Signup Successful!'" :show="showAlert" class="absolute top-0 left-auto z-50" />
-    <div class=" p-8 rounded-2xl w-96 text-center">
+  <div class="flex items-center justify-center min-h-screen bg-teal-950">
+    <Alert
+      v-if="showAlert"
+      :message="'Signup Successful!'"
+      :show="showAlert"
+      class="absolute top-0 left-auto z-50"
+    />
+    <div class="p-8 rounded-2xl w-96 text-center">
       <div class="flex justify-center mb-4">
         <div class="p-3">
           <nuxt-link to="/">
-            <div class="flex items-center text-xl font-bold bg-transparent">
-              <div>
-                <img src="" alt="Logo" class="w-16" />
+            <div
+              class="flex flex-col w-full font-semibold mb-4 justify-center items-center py-3"
+            >
+              <div class="w-full text-white flex flex-col justify-center items-center">
+                <img class="w-16" src="/images/logo.png" alt="" />
+                Motion Express Way
               </div>
-              <div class="-ml-5">hollery</div>
             </div>
           </nuxt-link>
         </div>
@@ -41,9 +48,12 @@
         <button
           type="submit"
           :disabled="isLoading"
-          class="w-full bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-700 transition flex items-center justify-center"
+          class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition flex items-center justify-center"
         >
-          <span v-if="isLoading" class="animate-spin border-4 border-white border-t-transparent rounded-full w-5 h-5 mr-2"></span>
+          <span
+            v-if="isLoading"
+            class="animate-spin border-4 border-white border-t-transparent rounded-full w-5 h-5 mr-2"
+          ></span>
           {{ isLoading ? "Signing up..." : "Sign up" }}
         </button>
       </form>
@@ -55,7 +65,9 @@
       <div class="my-4 text-gray-400">or</div>
       <p class="text-gray-400 mt-4 text-sm">
         Already have an account?
-        <NuxtLink to="/auth/login" class="text-teal-600 hover:underline">login!</NuxtLink>
+        <NuxtLink to="/auth/login" class="text-blue-600 hover:underline"
+          >login!</NuxtLink
+        >
       </p>
     </div>
   </div>
@@ -69,7 +81,7 @@ import { ref } from "vue";
 import { useNuxtApp } from "#app"; // Accessing injected auth object
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
-import Alert from '@/components/Alert.vue';
+import Alert from "@/components/Alert.vue";
 import { getFriendlyErrorMessage } from "@/utils/errorMessages";
 
 const email = ref("");
@@ -109,7 +121,6 @@ const signUp = async () => {
     isLoading.value = false; // Stop loading
   }
 };
-
 </script>
 
 <style scoped>

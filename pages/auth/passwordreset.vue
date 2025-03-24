@@ -4,12 +4,12 @@
       <div class="flex justify-center mb-4">
         <div class="p-3">
           <nuxt-link to="/">
-            <div class="flex items-center text-xl font-bold bg-transparent">
-              <div>
-                <img src="" alt="Logo" class="w-16" />
-              </div>
-              <div class="-ml-5">hollery</div>
-            </div>
+            <div class="flex flex-col w-full font-semibold mb-4 justify-center items-center py-3">
+          <div class="w-full text-white">
+            <img class="w-16" src="/images/logo.png" alt="">
+            Motion Express Way
+             </div>
+        </div>
           </nuxt-link>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <button
           type="submit"
           :disabled="isLoading"
-          class="w-full bg-teal-600 text-white p-3 rounded-lg hover:bg-teal-700 transition flex items-center justify-center"
+          class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition flex items-center justify-center"
         >
           <span
             v-if="isLoading"
@@ -45,7 +45,7 @@
       <div class="my-4 text-gray-400">or</div>
       <p class="text-gray-400 mt-4 text-sm">
         Remember your password?
-        <NuxtLink to="/auth/login" class="text-teal-600 hover:underline"
+        <NuxtLink to="/auth/login" class="text-blue-600 hover:underline"
           >login!</NuxtLink
         >
       </p>
