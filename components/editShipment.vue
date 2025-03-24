@@ -5,6 +5,28 @@
       <hr class="my-3" />
 
       <form class="flex flex-col gap-6" @submit.prevent="updateShipment">
+        <!-- Custom Alert -->
+      <div
+      v-if="showAlert"
+        class="fixed top-5 left-1/2 flex transform -translate-x-1/2 bg-blue-500 text-white px-6 justify-center items-center py-2 text-sm rounded shadow-lg transition-opacity duration-500 ease-in-out fade"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+
+        {{ alertMessage }}
+      </div>
         <!-- Shipper & Receiver Info -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           <ShipmentSection title="Shipper Info" :fields="shipperFields" />
@@ -85,17 +107,38 @@ const updateShipment = async () => {
       receiver: receiverFields.value,
       shipmentDetails: shipmentFields.value,
     });
-    alert("Shipment updated successfully!");
+    showCustomAlert(`Shipment updated`);
     emit("close"); // Close modal after updating
   } catch (error) {
     console.error("Error updating shipment:", error);
     alert("Error updating shipment. Please try again.");
   }
 };
+
+
+const alertMessage = ref("");
+const showAlert = ref(false);
+
+const showCustomAlert = (message) => {
+  alertMessage.value = message;
+  showAlert.value = true;
+  setTimeout(() => {
+    showAlert.value = false;
+  }, 3000); // Alert fades out after 3 seconds
+};
 </script>
 
 <style scoped>
 .input {
   @apply py-3 rounded-lg border border-gray-400 px-3 w-full;
+}
+
+.fade {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-leave-active {
+  opacity: 0;
 }
 </style>

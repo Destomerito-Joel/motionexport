@@ -16,7 +16,11 @@
           <span v-else>Track</span>
         </button>
       </div>
-  
+      <div v-if="alert.show" 
+      :class="alert.type === 'success' ? 'bg-green-500' : 'bg-red-500'" 
+      class="fixed bottom-1 right-5 text-white px-4 py-3 rounded-lg shadow-md transition-opacity duration-500">
+      {{ alert.message }}
+    </div>
       <div v-if="foundShipment" class="max-w-3xl mx-auto p-6 bg-white  rounded-lg">
         
   
@@ -121,11 +125,19 @@
   const loading = ref(false);
   const foundShipment = ref(false);
   const shipmentData = ref({});
+  const alert = ref({ show: false, message: "", type: "success" });
+
+  const showAlert = (message, type = "success") => {
+  alert.value = { show: true, message, type };
+  setTimeout(() => {
+    alert.value.show = false;
+  }, 3000);
+};
   
   // Function to track shipment
   const trackShipment = async () => {
     if (!trackingInput.value) {
-      alert("Please enter a Tracking ID");
+      showAlert("Please enter a Tracking ID", "error");
       return;
     }
   
@@ -165,12 +177,13 @@
           };
   
           foundShipment.value = true;
+          showAlert("Shipment found successfully!", "success");
         });
       } else {
-        alert("Shipment not found!");
+        showAlert("Shipment not found!", "error");
       }
     } catch (error) {
-      alert("Error fetching shipment.");
+      showAlert("Error fetching shipment!", "error");
     }
   
     loading.value = false;

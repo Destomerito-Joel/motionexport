@@ -1,13 +1,42 @@
 <template>
-  <div class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="relative bg-white py-6 px-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-auto">
+  <div
+    class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
+  >
+    <div
+      class="relative bg-white py-6 px-6 rounded-lg shadow-lg w-full max-w-3xl max-h-[90vh] overflow-auto"
+    >
       <!-- Close Button -->
-      <button @click="$emit('close-modal')" class="absolute top-2 right-3 bg-red-500 px-4 py-2 text-white rounded-lg">
+      <button
+        @click="$emit('close-modal')"
+        class="absolute top-2 right-3 bg-red-500 px-4 py-2 text-white rounded-lg"
+      >
         Close
       </button>
 
       <h2 class="text-lg font-semibold">Create Shipment</h2>
       <hr class="my-3" />
+      <!-- Custom Alert -->
+      <div
+      v-if="showAlert"
+        class="fixed top-5 left-1/2 flex transform -translate-x-1/2 bg-blue-500 text-white px-6 justify-center items-center py-2 text-sm rounded shadow-lg transition-opacity duration-500 ease-in-out fade"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+          />
+        </svg>
+
+        {{ alertMessage }}
+      </div>
 
       <!-- Form -->
       <form class="flex flex-col gap-6" @submit.prevent="createShipment">
@@ -19,26 +48,57 @@
 
         <!-- Shipment Status -->
         <div>
-          <label for="status" class="block text-sm font-medium">Select Status</label>
+          <label for="status" class="block text-sm font-medium"
+            >Select Status</label
+          >
           <select v-model="selectedStatus" id="status" class="input w-64">
             <option disabled value="">Choose a status</option>
             <option v-for="status in statuses" :key="status" :value="status">
               {{ status }}
             </option>
           </select>
-          <p class="text-sm text-gray-600 mt-1">Selected: {{ selectedStatus }}</p>
+          <p class="text-sm text-gray-600 mt-1">
+            Selected: {{ selectedStatus }}
+          </p>
         </div>
 
         <!-- Shipment Image Upload -->
         <div class="mt-4">
           <label class="block text-sm font-medium">Add Images</label>
-          <input type="file" ref="fileInput" accept="image/*" multiple @change="handleFileUpload" class="hidden" />
-          <button type="button" @click="triggerFileInput" class="input px-3 cursor-pointer">Upload Images</button>
+          <input
+            type="file"
+            ref="fileInput"
+            accept="image/*"
+            multiple
+            @change="handleFileUpload"
+            class="hidden"
+          />
+          <button
+            type="button"
+            @click="triggerFileInput"
+            class="input px-3 cursor-pointer"
+          >
+            Upload Images
+          </button>
 
-          <div v-if="shipmentImages.length" class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2">
-            <div v-for="(image, index) in shipmentImages" :key="index" class="relative">
-              <img :src="image.preview" alt="Shipment Image" class="border border-gray-300 rounded size-48 object-cover" />
-              <button @click="removeImage(index)" class="absolute top-1 left-1 bg-red-700 text-white rounded-full px-2 py-1 text-xs">
+          <div
+            v-if="shipmentImages.length"
+            class="mt-3 grid grid-cols-2 md:grid-cols-4 gap-2"
+          >
+            <div
+              v-for="(image, index) in shipmentImages"
+              :key="index"
+              class="relative"
+            >
+              <img
+                :src="image.preview"
+                alt="Shipment Image"
+                class="border border-gray-300 rounded size-48 object-cover"
+              />
+              <button
+                @click="removeImage(index)"
+                class="absolute top-1 left-1 bg-red-700 text-white rounded-full px-2 py-1 text-xs"
+              >
                 Remove
               </button>
             </div>
@@ -47,13 +107,24 @@
 
         <!-- Shipment Details -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-          <ShipmentInput v-for="(field, index) in shipmentFields" :key="index" v-model="field.value" v-bind="field" />
+          <ShipmentInput
+            v-for="(field, index) in shipmentFields"
+            :key="index"
+            v-model="field.value"
+            v-bind="field"
+          />
         </div>
 
         <!-- Submit Button -->
         <div class="mt-5 py-2">
-          <button :disabled="loading" class="input bg-gray-900 text-white font-semibold flex items-center justify-center w-full">
-            <span v-if="loading" class="spinner-border spinner-border-sm mr-2"></span>
+          <button
+            :disabled="loading"
+            class="input bg-gray-900 text-white font-semibold flex items-center justify-center w-full"
+          >
+            <span
+              v-if="loading"
+              class="spinner-border spinner-border-sm mr-2"
+            ></span>
             Create Shipment
           </button>
         </div>
@@ -89,7 +160,6 @@ const receiverFields = ref([
   { placeholder: "Receiver Phone Number", value: "" },
   { placeholder: "Receiver Email", value: "" },
 ]);
-
 
 // Shipment Fields
 const shipmentFields = ref([
@@ -149,12 +219,16 @@ const uploadImageToCloudinary = async (file) => {
   formData.append("upload_preset", "nft-image");
 
   try {
-    const response = await fetch("https://api.cloudinary.com/v1_1/dss5l5svz/image/upload", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://api.cloudinary.com/v1_1/dss5l5svz/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
-    if (!response.ok) throw new Error(`Cloudinary upload failed: ${response.statusText}`);
+    if (!response.ok)
+      throw new Error(`Cloudinary upload failed: ${response.statusText}`);
 
     const data = await response.json();
     return data.secure_url;
@@ -191,7 +265,8 @@ const createShipment = async () => {
 
   try {
     await addDoc(collection(db, "shipments"), shipmentData);
-    alert(`Shipment Created! Tracking ID: ${trackingID}`);
+    showCustomAlert(`Shipment Created! Tracking ID: ${trackingID}`);
+
     resetForm();
   } catch (error) {
     console.error("Error creating shipment:", error);
@@ -209,6 +284,16 @@ const resetForm = () => {
   shipperFields.value = { name: "", address: "", phoneNumber: "", email: "" };
   receiverFields.value = { name: "", address: "", phoneNumber: "", email: "" };
 };
+const alertMessage = ref("");
+const showAlert = ref(false);
+
+const showCustomAlert = (message) => {
+  alertMessage.value = message;
+  showAlert.value = true;
+  setTimeout(() => {
+    showAlert.value = false;
+  }, 3000); // Alert fades out after 3 seconds
+};
 </script>
 
 <style scoped>
@@ -219,4 +304,14 @@ const resetForm = () => {
 .spinner-border {
   @apply border-2 border-transparent border-t-white rounded-full w-4 h-4 animate-spin;
 }
+
+.fade {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-leave-active {
+  opacity: 0;
+}
+
 </style>

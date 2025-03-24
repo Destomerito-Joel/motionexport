@@ -67,7 +67,7 @@
 
         <!-- Gallery (Emit Event) -->
 
-        <button class="flex items-center flex-col hover:text-blue-400 border-none">
+        <button @click="logout"  class="flex items-center flex-col hover:text-blue-400 border-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -90,6 +90,21 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "vue-router";
+
+const auth = getAuth();
+const router = useRouter();
+
+const logout = async () => {
+  try {
+    await signOut(auth);
+    router.push("/auth/login"); // Redirect to login page
+  } catch (error) {
+    console.error("Logout failed:", error.message);
+  }
+};
+</script>
 
 <style scoped></style>

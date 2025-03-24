@@ -1,6 +1,6 @@
 <template>
     <section class="py-12 ">
-      <div class="container mx-auto px-6">
+      <div class=" mx-auto px-6">
         <h2 class="text-3xl font-bold text-gray-800 text-center mb-8">
           Powering shipping success at all sizes
         </h2>
@@ -19,7 +19,7 @@
           :pagination="{ clickable: true }"
           class="pb-10"
         >
-          <swiper-slide v-for="(testimonial, index) in testimonials" :key="index">
+          <swiper-slide v-for="(testimonial, index) in testimonials" :key="index" class="w-full">
             <div class="bg-blue-900 text-white rounded-lg overflow-hidden shadow-md">
               <img :src="testimonial.image" class="w-full h-48 object-cover" alt="testimonial image" />
               <div class="p-6">

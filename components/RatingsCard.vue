@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full px-6 py-12 bg-gradient-to-b from-gray-100 to-white text-center"
+    class="w-full px-3 py-12 bg-gradient-to-b from-gray-100 to-white text-center"
   >
     <!-- Title & Description -->
     <h2 class="text-3xl font-bold text-gray-800">Impact you can see</h2>
@@ -49,7 +49,7 @@
         <span class="text-gray-600">{{ review.text }}</span>
       </div>
     </div>
-    <Testimonials />
+    <Testimonials class="w-full"/>
   </div>
 </template>
 
