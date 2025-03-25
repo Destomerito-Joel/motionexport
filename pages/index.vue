@@ -40,7 +40,7 @@
       <swiperCard />
     </div>
 
-    <div class="fade-in" data-delay="2.4">
+    <div class="">
       <RatingsCard />
     </div>
 
