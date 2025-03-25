@@ -22,15 +22,15 @@
       <Tracking />
     </div>
     
-    <div class="w-full fade-in" data-delay="0.9">
+    <div class="w-full fade-in  py-4" data-delay="0.9">
       <frightCard class="z-30" />
     </div>
     
-    <div class="mt-24 fade-in" data-delay="1.2">
+    <div class=" fade-in" data-delay="1.2">
       <Aboutus />
     </div>
     
-    <div class="w-full mt-20 bg-blue-500 pt-2 fade-in" data-delay="1.5">
+    <div class="w-full  bg-blue-500 pt-2 fade-in" data-delay="1.5">
       <div class="w-full px-9 mt-5">
         <h1 class="text-gray-100 text-xl font-bold sm:text-2xl md:text-3xl">HOW IT WORKS</h1>
         <h2 class="font-semibold text-sm mt-2 sm:text-2xl md:text-3xl text-gray-50">
