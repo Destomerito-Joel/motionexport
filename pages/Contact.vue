@@ -17,7 +17,7 @@
                 📞 Call us at: <span class="ml-2 text-blue-500">+1-800-555-1234</span>
               </p>
               <p class="mt-2 text-gray-700 font-semibold flex items-center">
-                📧 Email us: <a href="mailto:support@parcelperform.com" class="ml-2 text-blue-500">support@parcelperform.com</a>
+                📧 Email us: <a href="mailto:support@motionexpressway.com" class="ml-2 text-blue-500">support@motionexpressway.com</a>
               </p>
             </div>
             <!-- Logos -->

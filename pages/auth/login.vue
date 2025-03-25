@@ -82,13 +82,13 @@ definePageMeta({
 });
 import { ref } from "vue";
 import { useNuxtApp } from "#app";
-import {
-  signInWithEmailAndPassword,
-  fetchSignInMethodsForEmail,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 import Alert from "@/components/Alert.vue";
 import { getFriendlyErrorMessage } from "@/utils/errorMessages";
+
+// Remove the duplicate import for useCookie
+const user = useCookie('user'); // Define cookie to store user data
 
 const email = ref("");
 const password = ref("");
@@ -104,7 +104,6 @@ const signIn = async () => {
   isLoading.value = true;
 
   try {
-    // ✅ Attempt login directly
     const userCredential = await signInWithEmailAndPassword(
       $auth,
       email.value.trim(),
@@ -112,12 +111,20 @@ const signIn = async () => {
     );
     const user = userCredential.user;
 
-    // 🎉 Show success alert
+    // Store user data in cookie (Make sure to stringify it properly)
+    useCookie('user').value = JSON.stringify({
+      uid: user.uid,
+      email: user.email,
+    });
+
+    // Show success alert
     showAlert.value = true;
     setTimeout(() => (showAlert.value = false), 3000);
 
     console.log("User signed in:", user);
-    router.push("/admin"); // Redirect after login
+    await nextTick(() => {
+      router.push("/admin"); // Redirect after login
+    });
   } catch (error) {
     console.error("Login Error:", error);
     errorMessage.value = getFriendlyErrorMessage(error); // Show user-friendly error

@@ -1,15 +1,12 @@
 <template>
-    <div class="flex flex-col lg:flex-row items-center justify-between gap-8 bg-gray-50 p-6 lg:p-12">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-8 bg-white p-6 lg:p-12">
       <!-- Contact Info -->
       <div class="w-full lg:w-1/3 space-y-6">
         <h2 class="text-3xl font-bold text-gray-800 animate-fadeIn">Get In Touch With Us</h2>
-        <p class="text-gray-600 animate-fadeIn delay-200">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </p>
+   
         <div class="space-y-4">
           <div class="flex items-center gap-4 animate-fadeIn delay-300">
-            <span class="text-blue-500 text-xl">📍</span>
-            <p>99 St. Jomblo Park Pekanbaru, Indonesia</p>
+
           </div>
           <div class="flex items-center gap-4 animate-fadeIn delay-400">
             <span class="text-blue-500 text-xl">📞</span>
@@ -17,7 +14,7 @@
           </div>
           <div class="flex items-center gap-4 animate-fadeIn delay-500">
             <span class="text-blue-500 text-xl">📧</span>
-            <p>info@yourdomain.com</p>
+            <p>support@motionexpressway.com</p>
           </div>
         </div>
       </div>

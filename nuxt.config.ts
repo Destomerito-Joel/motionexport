@@ -50,5 +50,6 @@ export default defineNuxtConfig({
     },
     registerType: 'autoUpdate'
   },
+  
   compatibilityDate: '2025-03-20',
 });

@@ -1,8 +1,9 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-    const user = useCookie('user') // Example: Using a cookie to store authentication state
+export default defineNuxtRouteMiddleware(() => {
+  const user = useCookie('user'); // Get user from cookie
   
-    if (!user.value) {
-      return navigateTo('/auth/login') // Redirect if user is not authenticated
-    }
-  })
-  
+  console.log("User cookie in middleware:", user.value); // Check if cookie is set
+
+  if (!user.value) {
+    return navigateTo('/auth/login'); // Redirect to login if user is not authenticated
+  }
+});
