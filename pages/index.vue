@@ -44,7 +44,7 @@
       <RatingsCard />
     </div>
 
-    <div class="p-7 fade-in" data-delay="2.7">
+    <div class="fade-in" data-delay="2.7">
       <ContactForm />
     </div>
   </div>
