@@ -14,6 +14,11 @@
               <p class="text-xs md:text-sm text-gray-50 bg-green-500 w-20 py-2 pl-3 rounded-3xl font-medium">
                 {{ shipmentData.status || 'Pending' }}
               </p>
+              <div class="mb-4 mt-2">
+            <h3 class="text-sm font-semibold text-gray-600">Shipment Info:</h3>
+            <p class="text-gray-700 text-sm">{{ shipmentData.shipmentInfo }}</p>
+            <!-- ✅ Show Shipment Info -->
+          </div>
             </div>
             <div class="p-3">
               <h3 class="text-sm md:text-xl font-semibold text-gray-500 mb-3">Shipment Dates</h3>

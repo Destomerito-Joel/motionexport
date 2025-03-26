@@ -17,7 +17,7 @@
       <hr class="my-3" />
       <!-- Custom Alert -->
       <div
-      v-if="showAlert"
+        v-if="showAlert"
         class="fixed top-5 left-1/2 flex transform -translate-x-1/2 bg-blue-500 text-white px-6 justify-center items-center py-2 text-sm rounded shadow-lg transition-opacity duration-500 ease-in-out fade"
       >
         <svg
@@ -60,6 +60,18 @@
           <p class="text-sm text-gray-600 mt-1">
             Selected: {{ selectedStatus }}
           </p>
+        </div>
+
+        <div>
+          <label for="shipmentInfo" class="block text-sm font-medium"
+            >Shipment Info</label
+          >
+          <textarea
+            v-model="shipmentInfo"
+            id="shipmentInfo"
+            placeholder="Enter shipment details or comments"
+            class="input w-full h-24 resize-none"
+          ></textarea>
         </div>
 
         <!-- Shipment Image Upload -->
@@ -146,6 +158,7 @@ const loading = ref(false);
 // Status Options
 const statuses = ["Processed", "Shipped", "En Route", "Arrived"];
 const selectedStatus = ref("");
+const shipmentInfo = ref(""); // New state for Shipment Info
 
 const shipperFields = ref([
   { placeholder: "Shipper Name", value: "" },
@@ -255,6 +268,7 @@ const createShipment = async () => {
       value: f.value || "",
     })),
     shipmentImages: [],
+    shipmentInfo: shipmentInfo.value, // Add shipment info
   };
 
   // Upload Images to Cloudinary
@@ -283,6 +297,7 @@ const resetForm = () => {
   shipmentFields.value.forEach((field) => (field.value = ""));
   shipperFields.value = { name: "", address: "", phoneNumber: "", email: "" };
   receiverFields.value = { name: "", address: "", phoneNumber: "", email: "" };
+  shipmentInfo.value = ""; // Reset shipment info
 };
 const alertMessage = ref("");
 const showAlert = ref(false);
@@ -313,5 +328,4 @@ const showCustomAlert = (message) => {
 .fade-leave-active {
   opacity: 0;
 }
-
 </style>
