@@ -29,6 +29,22 @@
             </div>
           </div>
   
+          <hr class="sma:hidden ml-3 w-11/12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-4">
+        <div class="p-3 rounded-sm">
+          <h3 class="text-sm md:text-xl font-semibold text-gray-500 mb-3">
+            Location Info
+          </h3>
+          <p class="text-sm md:text-xl text-gray-700">
+            <strong>Previous Location:</strong>  {{ shipmentData.location?.[0]?.value || 'N/A' }}
+          </p>
+          <p class="text-sm md:text-xl text-gray-700">
+            <strong>Current Location:</strong>  {{ shipmentData.location?.[1]?.value || 'N/A' }}
+          </p>
+        </div>
+      </div>
+
+
           <!-- Shipper & Receiver -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div class="p-3">

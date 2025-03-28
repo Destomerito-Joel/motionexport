@@ -38,6 +38,11 @@
           <ShipmentSection title="Receiver Info" :fields="receiverFields" />
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <ShipmentSection title="Shipment Location" :fields="locationFields" />
+        </div>
+
+
         <!-- Shipment Status -->
         <div>
           <label for="status" class="block text-sm font-medium"
@@ -117,6 +122,7 @@ const selectedStatus = ref("");
 const shipperFields = ref([]);
 const receiverFields = ref([]);
 const shipmentFields = ref([]);
+const locationFields = ref([]);
 const shipmentInfo = ref("");
 
 let shipmentId = ref(null);
@@ -130,6 +136,7 @@ watch(
       selectedStatus.value = newShipment.status;
       shipperFields.value = newShipment.shipper;
       receiverFields.value = newShipment.receiver;
+      locationFields.value = newShipment.location;
       shipmentFields.value = newShipment.shipmentDetails;
       shipmentInfo.value = newShipment.shipmentInfo || ""; // Populate shipment info
     }
@@ -145,6 +152,7 @@ const updateShipment = async () => {
       status: selectedStatus.value,
       shipper: shipperFields.value,
       receiver: receiverFields.value,
+      location: locationFields.value,
       shipmentDetails: shipmentFields.value,
       shipmentInfo: shipmentInfo.value, // Include shipment info
     });

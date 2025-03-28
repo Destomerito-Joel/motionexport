@@ -46,6 +46,10 @@
           <ShipmentSection title="Receiver Info" :fields="receiverFields" />
         </div>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <ShipmentSection title="Shipment Location" :fields="locationFields" />
+        </div>
+
         <!-- Shipment Status -->
         <div>
           <label for="status" class="block text-sm font-medium"
@@ -173,6 +177,10 @@ const receiverFields = ref([
   { placeholder: "Receiver Phone Number", value: "" },
   { placeholder: "Receiver Email", value: "" },
 ]);
+const locationFields = ref([
+  { placeholder: "Previous Location", value: "" },
+  { placeholder: "Current Location", value: "" },
+]);
 
 // Shipment Fields
 const shipmentFields = ref([
@@ -262,6 +270,7 @@ const createShipment = async () => {
     trackingID,
     shipper: { ...shipperFields.value },
     receiver: { ...receiverFields.value },
+    location: { ...locationFields.value },
     status: selectedStatus.value,
     shipmentDetails: shipmentFields.value.map((f) => ({
       placeholder: f.placeholder,
@@ -298,6 +307,7 @@ const resetForm = () => {
   shipperFields.value = { name: "", address: "", phoneNumber: "", email: "" };
   receiverFields.value = { name: "", address: "", phoneNumber: "", email: "" };
   shipmentInfo.value = ""; // Reset shipment info
+  locationFields.value.forEach((field) => (field.value = ""));
 };
 const alertMessage = ref("");
 const showAlert = ref(false);
