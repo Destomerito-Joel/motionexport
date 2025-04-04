@@ -25,8 +25,9 @@
           </button>
         </nuxt-link>
 
-        <button 
-        @click="$emit('open-modal')"
+        <nuxt-link to="/admin/CreateShipment">
+          <button 
+        
         class="bg-gray-800 rounded-full flex justify-center items-center -mt-5 size-14">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +44,7 @@
             />
           </svg>
         </button>
+        </nuxt-link>
 
         <nuxt-link to="/admin/shipments">
           <button class="flex items-center flex-col hover:text-blue-400 border-none">

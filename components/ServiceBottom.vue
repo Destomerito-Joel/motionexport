@@ -23,7 +23,7 @@
       <div class="bg-gray-900 text-center text-white py-12 mt-16">
         <h2 class="text-2xl font-bold">We Make Transportation Easier, Join Us Today</h2>
        <nuxt-link to="/contact">
-        <button class="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+        <button class="mt-4 bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
           Contact Us
         </button>
        </nuxt-link>

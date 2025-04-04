@@ -14,7 +14,7 @@
             <h3 class="text-sm font-semibold text-gray-600 uppercase">Honest, Dependable, Efficient, and Productive</h3>
             <h2 class="text-2xl font-bold text-blue-500 mt-2">What We Do</h2>
             <p class="mt-4 text-gray-700 leading-relaxed">
-              Motion Express Way has become the most trusted name in the logistics industry.
+              Motion Experts has become the most trusted name in the logistics industry.
               We ensure fast, secure, and efficient delivery for our customers across various locations worldwide.
             </p>
             <p class="mt-4 text-gray-600">

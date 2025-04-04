@@ -1,13 +1,13 @@
 <template>
   <div
-    class="flex flex-col fixed top-0 left-0 w-full   overflow-hidden bg-white  "
+    class="flex flex-col fixed top-0 left-0 w-11/12 rounded-xl ml-3 overflow-hidden bg-white/10 backdrop-blur-lg  "
   >
     <div>
-      <div class="w-full px- flex items-center sm:h-24 justify-between">
+      <div class="w-full px- flex items-center sm:h-24 justify-between ">
         <nuxt-link  @click="toggleMenu" to="/">
           <div class="flex items-center text-xl font-bold">
           <div>
-            <img src="/images/logo.png" alt="Logo" class="w-16 mt-2 ml-2" />
+            <img src="/images/logo2.png" alt="Logo" class="w-16 mt-2 ml-2" />
           </div>
         </div>
         </nuxt-link>
@@ -19,7 +19,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="text-black size-12"
+            class="text-green-700 size-12"
             v-if="!isOpen"
             :class="{
               'rotate-180': isOpen,
@@ -41,7 +41,7 @@
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="size-12 text-black "
+            class="size-12 text-green-700 "
             v-if="isOpen"
             :class="{
               'rotate-180': !isOpen,

@@ -4,39 +4,32 @@
     <PageLoader />
 
     <!-- Background Section -->
-    <div class="relative w-full h-[430px] sm:h-[430px] flex flex-col justify-center items-center text-white fade-in">
+    <div class="relative w-full h-screen flex flex-col justify-center items-center text-white fade-in">
       <div 
         class="absolute inset-0 bg-cover bg-center overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-b before:from-black/50 before:to-blue/20"
-        style="background-image: url(/images/transport.jpg);">
+        style="background-image: url(/images/h1_hero.jpg);">
       </div>
-      <h1 class="relative mx-auto font-semibold sm:font-bold sm:text-xl md:text-4xl sm:mt-28 fade-in">
-        WELCOME TO MOTION EXPRESS WAY
+    
+    </div>
+    <div class=" flex-col w-full absolute top-0  left-0 flex justify-center z-10 fade-in " data-delay="0.6">
+      <create />
+      <h1 class="text-gray-50 p-4 italic md:pl-56 mt-3">
+        FOR ORDER  STATUS INQUIRY
       </h1>
-      <p class="relative mx-auto sm:font-semibold text-sm fade-in" data-delay="0.3">
-        Unbeatable Tracking and Shipment Service
-      </p>
     </div>
 
     <!-- Other Sections -->
-    <div class="absolute w-full top-[240px] sm:top-[300px] left-0 flex justify-center z-10 fade-in" data-delay="0.6">
-      <Tracking />
-    </div>
     
-    <div class="w-full fade-in  py-4" data-delay="0.9">
+    <div class="w-full fade-in  py-4 bg-gray-50" data-delay="0.9">
       <frightCard class="z-30" />
     </div>
     
-    <div class=" fade-in" data-delay="1.2">
+    <div >
       <Aboutus />
     </div>
     
-    <div class="w-full  bg-blue-500 pt-2 fade-in" data-delay="1.5">
-      <div class="w-full px-9 mt-5">
-        <h1 class="text-gray-100 text-xl font-bold sm:text-2xl md:text-3xl">HOW IT WORKS</h1>
-        <h2 class="font-semibold text-sm mt-2 sm:text-2xl md:text-3xl text-gray-50">
-          The fastest, most affordable way to ship products to your customers
-        </h2>
-      </div>
+    <div class="w-full fade-in" data-delay="1.5">
+      
       <swiperCard />
     </div>
 

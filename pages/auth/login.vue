@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-center min-h-screen bg-teal-950 relative"
+    class="flex items-center justify-center min-h-screen bg-green-950 relative"
   >
     <Alert
       v-if="showAlert"
@@ -16,8 +16,8 @@
               class="flex flex-col w-full font-semibold mb-4 justify-center items-center py-3"
             >
               <div class="w-full text-white flex flex-col justify-center items-center">
-                <img class="w-16" src="/images/logo.png" alt="" />
-                Motion Express Way
+                <img class="w-16" src="/images/logo2.png" alt="" />
+                Motion Experts
               </div>
             </div>
           </nuxt-link>
@@ -29,21 +29,21 @@
           v-model="email"
           type="email"
           placeholder="Email"
-          class="w-full p-3 rounded-lg border border-gray-600 mb-3 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          class="w-full p-3 rounded-lg border border-gray-600 mb-3 focus:outline-none focus:ring-2 focus:ring-green-500"
           required
         />
         <input
           v-model="password"
           type="password"
           placeholder="Password"
-          class="w-full p-3 rounded-lg border border-gray-600 mb-4 focus:outline-none focus:ring-2 focus:ring-teal-500"
+          class="w-full p-3 rounded-lg border border-gray-600 mb-4 focus:outline-none focus:ring-2 focus:ring-green-500"
           required
         />
 
         <button
           type="submit"
           :disabled="isLoading"
-          class="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-teal-700 transition flex items-center justify-center"
+          class="w-full bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition flex items-center justify-center"
         >
           <span
             v-if="isLoading"
@@ -60,7 +60,7 @@
       <div class="my-4 text-gray-400">or</div>
       <p class="text-gray-400 mt-4 text-sm">
         Don't have an account?
-        <NuxtLink to="/auth/signup" class="text-blue-600 hover:underline">
+        <NuxtLink to="/auth/signup" class="text-green-600 hover:underline">
           Sign up, it's free!
         </NuxtLink>
       </p>
@@ -68,7 +68,7 @@
         forgotten password?
         <NuxtLink
           to="/auth/passwordreset"
-          class="text-blue-600 hover:underline"
+          class="text-green-600 hover:underline"
         >
           Resetpassword!
         </NuxtLink>

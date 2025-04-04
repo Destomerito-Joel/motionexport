@@ -20,8 +20,9 @@
     </div>
 
     <!-- Floating Button to Open Modal -->
-    <button 
-      @click="openModal" 
+    <nuxt-link to="/admin/CreateShipment">
+      <button 
+      
       class="bg-blue-700 hidden rounded-full sm:flex justify-center items-center -mt-5 size-12 fixed bottom-8 right-4">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +35,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
       </svg>
     </button>
+    </nuxt-link>
 
     <!-- Modal (Create Shipment) -->
     <Teleport to="body">

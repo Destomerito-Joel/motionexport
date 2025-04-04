@@ -1,7 +1,10 @@
 <template>
-  <div v-if="loading" class="fixed inset-0 bg-gray-100 flex items-center justify-center z-50">
-    <div class="grid-loader">
-      <div v-for="i in 9" :key="i" class="grid-item"></div>
+  <div v-if="loading" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+    <div class="folding-cube">
+      <div class="cube cube1"></div>
+      <div class="cube cube2"></div>
+      <div class="cube cube4"></div>
+      <div class="cube cube3"></div>
     </div>
   </div>
 </template>
@@ -19,54 +22,42 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Grid Loader Container */
-.grid-loader {
-  display: grid;
-  grid-template-columns: repeat(3, 20px);
-  grid-template-rows: repeat(3, 20px);
-  gap: 8px;
-  animation: fadeIn 0.5s ease-in-out;
+/* Folding Cube Loader */
+.folding-cube {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  transform: rotate(45deg);
 }
 
-/* Individual Grid Items */
-.grid-item {
-  width: 20px;
-  height: 20px;
-  background-color: #4A90E2; /* Subtle blue */
-  border-radius: 5px; /* Soft rounded corners */
-  animation: fade 1.5s infinite ease-in-out;
+.cube {
+  width: 50%;
+  height: 50%;
+  background-color: rgb(23, 163, 23); /* Subtle blue */
+  position: absolute;
+  animation: foldCube 2.5s infinite linear;
+  transform-origin: 100% 100%;
 }
 
-/* Animation Delay for Each Item */
-.grid-item:nth-child(1) { animation-delay: 0s; }
-.grid-item:nth-child(2) { animation-delay: 0.1s; }
-.grid-item:nth-child(3) { animation-delay: 0.2s; }
-.grid-item:nth-child(4) { animation-delay: 0.3s; }
-.grid-item:nth-child(5) { animation-delay: 0.4s; }
-.grid-item:nth-child(6) { animation-delay: 0.5s; }
-.grid-item:nth-child(7) { animation-delay: 0.6s; }
-.grid-item:nth-child(8) { animation-delay: 0.7s; }
-.grid-item:nth-child(9) { animation-delay: 0.8s; }
+/* Cube Positions */
+.cube1 { top: 0; left: 0; animation-delay: 0s; }
+.cube2 { top: 0; right: 0; animation-delay: 0.3s; }
+.cube3 { bottom: 0; left: 0; animation-delay: 0.6s; }
+.cube4 { bottom: 0; right: 0; animation-delay: 0.9s; }
 
-/* Smooth fade animation for items */
-@keyframes fade {
-  0%, 100% {
-    opacity: 0.7;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}
-
-/* Fade-in Animation for Grid Loader */
-@keyframes fadeIn {
-  from {
+/* Folding Cube Animation */
+@keyframes foldCube {
+  0%, 10% {
+    transform: perspective(140px) rotateX(-180deg);
     opacity: 0;
   }
-  to {
+  25%, 75% {
+    transform: perspective(140px) rotateX(0);
     opacity: 1;
+  }
+  90%, 100% {
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
   }
 }
 </style>

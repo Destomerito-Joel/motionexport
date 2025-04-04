@@ -15,12 +15,16 @@ export default defineNuxtConfig({
     }
   },
   ui: {
-    primary: 'blue',
+    primary: 'green',
   },
   head: {
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+       {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
+        },
     ]
   },
  

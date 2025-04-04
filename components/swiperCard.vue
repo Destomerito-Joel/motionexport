@@ -1,64 +1,26 @@
 <template>
-    <div class="w-full px-6 py-12">
-      <!-- Desktop View -->
-      <div class="hidden md:grid grid-cols-4 gap-6">
-        <FeatureCard
-          v-for="(feature, index) in features"
-          :key="index"
-          :feature="feature"
-        />
+  <section class="py-16 bg-white">
+    <div class="container mx-auto px-6 lg:px-16 grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Left Content -->
+      <div class="text-left">
+        <p class="text-green-600 font-semibold">About Our Company</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mt-2">
+          Safe Logistic & Transport Solutions <br />
+          That Saves Our Valuable Time!
+        </h2>
+        <p class="text-gray-700 text-base md:text-lg mt-4 leading-relaxed">
+          We provide the best Air freight across Europe, America, Asia all over the world, 
+          Land transport, Cargo. We also insure your goods, 100% Guaranteed your goods are safe.
+        </p>
+        <button class="mt-6 bg-green-700 hover:bg-green-800 text-white py-3 px-6 rounded-md shadow-lg transition">
+          MORE ABOUT US
+        </button>
       </div>
-  
-      <!-- Mobile View (Slider) -->
-      <div class="md:hidden">
-        <swiper
-          :modules="[SwiperAutoplay, SwiperPagination]"
-          :slides-per-view="1"
-          :space-between="20"
-          :loop="true"
-          :autoplay="{ delay: 3000 }"
-          :pagination="{ clickable: true }"
-        >
-          <swiper-slide v-for="(feature, index) in features" :key="index">
-            <FeatureCard :feature="feature" />
-          </swiper-slide>
-        </swiper>
+
+      <!-- Right Image -->
+      <div class="flex justify-center">
+        <img src="/images/about.jpeg" alt="Workers in warehouse" class="rounded-lg shadow-lg w-full max-w-md md:max-w-lg">
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { Swiper, SwiperSlide } from 'swiper/vue';
-  import { Autoplay as SwiperAutoplay, Pagination as SwiperPagination } from 'swiper/modules';
-  import 'swiper/css';
-  import 'swiper/css/pagination';
-  import FeatureCard from '@/components/FeatureCard.vue';
-  
-  const features = [
-    {
-      title: "Ship From All Your Stores with One Login",
-      description: "Our 180+ integrations save you hours a month managing and shipping orders from a single app.",
-      icon: "👆",
-    },
-    {
-      title: "Automate Repetitive Tasks",
-      description: "Reduce human error and create 15x more labels per hour.",
-      icon: "⚙️",
-    },
-    {
-      title: "Cut Costs, Not Corners",
-      description: "Motion Express Way saved businesses $4M last year by surfacing the best shipping rates.",
-      icon: "💲",
-    },
-    {
-      title: "Grow Your Business",
-      description: "Customers report scaling operations over 40x with Motion Express Way help.",
-      icon: "🚀",
-    },
-  ];
-  </script>
-  
-  <style scoped>
-  /* Custom styles if needed */
-  </style>
-  
+  </section>
+</template>

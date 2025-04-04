@@ -4,13 +4,13 @@ import { getAuth } from "firebase/auth";
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAtEixy13dqLWwGj0tybEEp8o6wLLC7sZA",
-  authDomain: "consignment-48602.firebaseapp.com",
-  projectId: "consignment-48602",
-  storageBucket: "consignment-48602.firebasestorage.app",
-  messagingSenderId: "15764251617",
-  appId: "1:15764251617:web:da5a4db33b80eb82f6a8a0",
-  measurementId: "G-H8NBNRLYVL"
+  apiKey: "AIzaSyBCUbKSppZprSG9DEF_E4hHAfFnG-69fiE",
+  authDomain: "motionexport-83ed7.firebaseapp.com",
+  projectId: "motionexport-83ed7",
+  storageBucket: "motionexport-83ed7.firebasestorage.app",
+  messagingSenderId: "77941982903",
+  appId: "1:77941982903:web:587b893a5be2a7360c2f32",
+  measurementId: "G-VJMQMSR5H3"
 };
 
 export default defineNuxtPlugin((nuxtApp) => {

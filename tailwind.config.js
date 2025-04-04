@@ -7,7 +7,11 @@ export default {
       './plugins/**/*.{js,ts}',
     ],
     theme: {
-      extend: {},
+      extend: {
+        fontFamily: {
+          poppins: ["Poppins", "sans-serif"],
+        },
+      },
     },
     plugins: [],
   };
