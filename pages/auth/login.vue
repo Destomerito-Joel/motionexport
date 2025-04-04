@@ -2,6 +2,9 @@
   <div
     class="flex items-center justify-center min-h-screen bg-green-950 relative"
   >
+      <!-- Page Loader -->
+      <PageLoader />
+
     <Alert
       v-if="showAlert"
       :message="'Login Successful!'"
@@ -86,6 +89,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "vue-router";
 import Alert from "@/components/Alert.vue";
 import { getFriendlyErrorMessage } from "@/utils/errorMessages";
+import PageLoader from "@/components/PageLoader.vue";
+
 
 // Remove the duplicate import for useCookie
 const user = useCookie('user'); // Define cookie to store user data

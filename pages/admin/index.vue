@@ -1,5 +1,6 @@
 <template>
   <div>
+    <PageLoader />
     <div class="bg-gray-900 pl-20 py-2 pb-5">
       <h1 class="text-white font-semibold">Welcome, Admin</h1>
     </div>
@@ -59,7 +60,7 @@ definePageMeta({
 });
 import { ref, onMounted } from "vue";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-
+import PageLoader from "@/components/PageLoader.vue";
 // Firestore instance
 const db = getFirestore();
 

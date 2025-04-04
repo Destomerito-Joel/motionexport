@@ -1,5 +1,7 @@
 <template>
   <div class="flex items-center justify-center min-h-screen bg-green-950 ">
+    <!-- Page Loader -->
+    <PageLoader />
     <div class="bg-white p-8 rounded-2xl w-96 text-center">
       <div class="flex justify-center mb-4">
         <div class="p-3">
@@ -62,6 +64,7 @@ import { ref } from "vue";
 import { useNuxtApp } from "#app"; // Accessing injected auth object
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useRouter } from "vue-router";
+import PageLoader from "@/components/PageLoader.vue";
 
 const email = ref("");
 const errorMessage = ref(""); // To store error messages
