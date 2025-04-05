@@ -189,22 +189,38 @@ const generatePdf = async () => {
   if (process.client) {
     const { default: html2pdf } = await import('html2pdf.js');
 
+    const element = receiptRef.value;
+
+    if (!element) {
+      console.error("Receipt not found for PDF generation.");
+      return;
+    }
+
+    // Wrap the receipt in a centered container to help with alignment
+    const wrapper = document.createElement('div');
+    wrapper.style.display = 'flex';
+    wrapper.style.justifyContent = 'center';
+    wrapper.style.alignItems = 'center';
+    wrapper.style.padding = '20px';
+    wrapper.style.background = 'white';
+    wrapper.appendChild(element.cloneNode(true)); // Clone it so Vue isn't touched
+
     const options = {
+      margin: 0,
       filename: `Shipment_Receipt_${trackingId.value.trim()}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 4 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['avoid-all'] }
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true, // Important for iOS and images
+        scrollY: 0
+      },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
-    // Access the receipt via the reference and generate the PDF
-    if (receiptRef.value) {
-      html2pdf().from(receiptRef.value).set(options).save();
-    } else {
-      console.error("Receipt not found for PDF generation.");
-    }
+    html2pdf().set(options).from(wrapper).save();
   }
 };
+
 </script>
 
 <style scoped>
