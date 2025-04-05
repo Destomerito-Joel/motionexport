@@ -32,7 +32,7 @@
     </div>
 
     <!-- Display shipment details -->
-    <div v-if="shipmentData && shipmentData.boxes" ref="receiptRef" class="w-full max-w-3xl mt-16 space-y-6 bg-white p-8 rounded-lg shadow-xl border border-gray-300">
+    <div v-if="shipmentData && shipmentData.boxes" ref="receiptRef" class="w-full max-w-3xl mt-16 space-y-6 bg-white py-8 px-3 rounded-lg shadow-xl border border-gray-300">
       <!-- Logo and title section -->
       <div class="flex justify-between items-center mb-8">
         <img src="/images/logo2.png" alt="Logo" class="w-32" />
