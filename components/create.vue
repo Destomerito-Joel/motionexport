@@ -32,9 +32,9 @@
     </div>
 
     <!-- Display shipment details -->
-    <div v-if="shipmentData && shipmentData.boxes" ref="receiptRef" class="w-full max-w-3xl mt-16 space-y-6 bg-white py-8 px-3 rounded-lg shadow-xl border border-gray-300">
+    <div v-if="shipmentData && shipmentData.boxes" ref="receiptRef" class="w-full max-w-3xl mt-16 space-y-6 bg-white py-8 px-3 rounded-lg shadow-xl border border-gray-300 mx-auto">
       <!-- Logo and title section -->
-      <div class="flex justify-between items-center mb-8">
+      <div class="flex justify-between items-center mb-8 pl-6">
         <img src="/images/logo2.png" alt="Logo" class="w-32" />
         <div class="text-center flex-1">
           <h2 class="text-2xl font-semibold text-gray-800">Shipment Receipt</h2>
@@ -46,8 +46,8 @@
 
       <!-- Shipment details -->
       <div class="space-y-4">
-        <div v-for="(box, index) in shipmentData.boxes" :key="index" class="space-y-4 bg-white border border-gray-200 ">
-          <div class="w-full p-4 bg-green-600 ">
+        <div v-for="(box, index) in shipmentData.boxes" :key="index" class="space-y-4 bg-white border border-gray-200">
+          <div class="w-full p-4 bg-green-600">
             <h3 class="text-2xl font-semibold text-gray-50">{{ box.title }}</h3>
           </div>
           <ul class="space-y-4">
@@ -66,13 +66,8 @@
         </div>
       </div>
 
-      <!-- Barcode for Tracking ID -->
-      <div class="mt-4 flex justify-center items-center">
-        <img src="https://img.freepik.com/free-psd/barcode-illustration-isolated_23-2150584086.jpg?uid=R186848200&ga=GA1.1.1667496693.1742649100&semt=ais_hybrid&w=740" alt="" class="w-32">
-      </div>
-
       <!-- Footer with signature and date -->
-      <div class="mt-8 text-center text-gray-600 relative">
+      <div class="pt-8 px-2 text-center text-gray-600 relative">
         <img src="/images/signature.png" alt="" class="w-32 absolute -bottom-5 left-16">
         <div class="flex justify-between text-sm">
           <p>Signature: ______________________</p>
@@ -94,7 +89,6 @@
 import { ref, onMounted } from 'vue';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getApp } from 'firebase/app';
-import JsBarcode from 'jsbarcode';
 
 // Import your components
 import ErrorComponent from '@/components/ErrorComponent.vue';
@@ -187,16 +181,6 @@ const trackShipment = async () => {
   }
 };
 
-// Generate barcode when tracking ID is available
-onMounted(() => {
-  if (trackingId.value.trim()) {
-    JsBarcode($refs.barcode, trackingId.value.trim(), {
-      format: 'CODE128',
-      displayValue: true
-    });
-  }
-});
-
 // Create reference to the receipt element
 const receiptRef = ref(null);
 
@@ -209,7 +193,8 @@ const generatePdf = async () => {
       filename: `Shipment_Receipt_${trackingId.value.trim()}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 4 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all'] }
     };
 
     // Access the receipt via the reference and generate the PDF
@@ -221,3 +206,14 @@ const generatePdf = async () => {
   }
 };
 </script>
+
+<style scoped>
+/* This ensures the receipt is centered both horizontally and vertically */
+.receipt-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+</style>
