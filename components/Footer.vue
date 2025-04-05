@@ -58,7 +58,7 @@
 
       <!-- Copyright -->
       <p class="mt-8 text-gray-500 text-sm">
-        Copyright © 2025 All rights reserved by <span class="text-green-500">Motion Experts</span>
+        Copyright © 2025 All rights reserved by <span class="text-green-500">Motion Celerity</span>
       </p>
     </div>
   </footer>

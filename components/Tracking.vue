@@ -32,7 +32,7 @@
       >
         <div class="w-full">
           <img class="w-16" src="/images/logo.png" alt="" />
-          Motion Experts
+          Motion Celerity
         </div>
       </div>
 

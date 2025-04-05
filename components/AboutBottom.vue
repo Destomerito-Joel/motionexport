@@ -5,7 +5,7 @@
       <main class="max-w-4xl text-center p-8">
         <h2 class="text-3xl font-bold">Manage complexity. Deliver results.</h2>
         <p class="text-gray-600 mt-2">
-          Motion Experts cuts label costs, shortens fulfillment time, and satisfies more customers. We scale shipping as you grow.
+          Motion Celerity cuts label costs, shortens fulfillment time, and satisfies more customers. We scale shipping as you grow.
         </p>
   
         <div class="mt-8 flex">

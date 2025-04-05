@@ -40,7 +40,7 @@
     <div class="fade-in" data-delay="2.7">
       <ContactForm />
     </div>
-  </div>
+  </div>   
 </template>
 
 <script setup>

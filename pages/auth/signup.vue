@@ -18,7 +18,7 @@
             >
               <div class="w-full text-white flex flex-col justify-center items-center">
                 <img class="w-16" src="/images/logo2.png" alt="" />
-                Motion Experts
+                Motion Celerity
               </div>
             </div>
           </nuxt-link>

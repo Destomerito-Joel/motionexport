@@ -1,5 +1,5 @@
 <template>
-  <main class="space-y-8 pt-16  flex flex-col items-center mt-28">
+  <main class="space-y-8 pt-16 flex flex-col items-center mt-28">
     <h1 class="sm:text-3xl text-2xl px-3 font-extrabold text-white">
       Safe & Reliable <span class="text-green-600">Logistic</span> Solution!
     </h1>
@@ -21,19 +21,37 @@
       </button>
     </div>
 
+    <!-- Error or Success Message -->
+    <div v-if="error" class="mt-6 absolute top-27 right-1">
+      <ErrorComponent :message="error" />
+    </div>
+
+    <!-- Success Message when shipment found -->
+    <div v-if="shipmentData && !error" class="mt-6 absolute top-27 right-1">
+      <SuccessComponent :message="'Shipment Found!'" />
+    </div>
+
     <!-- Display shipment details -->
-    <div v-if="shipmentData" class="w-full max-w-4xl mt-16 space-y-6 bg-white pt-6">
-      <div class="w-full px-6 ">
-        <h2 class="text-2xl font-semibold text-gray-800 text-center ">Check the Progress of your Deliveries</h2>
+    <div v-if="shipmentData && shipmentData.boxes" ref="receiptRef" class="w-full max-w-3xl mt-16 space-y-6 bg-white p-8 rounded-lg shadow-xl border border-gray-300">
+      <!-- Logo and title section -->
+      <div class="flex justify-between items-center mb-8">
+        <img src="/images/logo2.png" alt="Logo" class="w-32" />
+        <div class="text-center flex-1">
+          <h2 class="text-2xl font-semibold text-gray-800">Shipment Receipt</h2>
+          <p class="text-gray-500 text-sm">Tracking ID: {{ trackingId }}</p>
+        </div>
       </div>
-      <hr class="w-11/12 ml-3">
-      <div class="space-y-4 p-6">
-        <div v-for="(box, index) in shipmentData.boxes" :key="index" class="border shadow space-y-4 bg-white border-gray-200">
-          <div class="w-full p-6 bg-green-800">
+
+      <hr class="border-gray-300 mb-6">
+
+      <!-- Shipment details -->
+      <div class="space-y-4">
+        <div v-for="(box, index) in shipmentData.boxes" :key="index" class="space-y-4 bg-white border border-gray-200 ">
+          <div class="w-full p-4 bg-green-600 ">
             <h3 class="text-2xl font-semibold text-gray-50">{{ box.title }}</h3>
           </div>
-          <ul class="space-y-3 p-6">
-            <li v-for="(field, fieldIndex) in box.fields" :key="fieldIndex" class="flex justify-between items-center text-gray-700">
+          <ul class="space-y-4">
+            <li v-for="(field, fieldIndex) in box.fields" :key="fieldIndex" class="flex gap-4 p-4 text-gray-700">
               <span class="font-medium">{{ field.title }}:</span>
               <span 
                 :class="{
@@ -47,35 +65,51 @@
           </ul>
         </div>
       </div>
-    </div>
 
-    <!-- Error or Success Message -->
-    <div v-if="error" class="mt-6 absolute top-27 right-1" >
-      <ErrorComponent :message="error" />
-    </div>
+      <!-- Barcode for Tracking ID -->
+      <div class="mt-4 flex justify-center items-center">
+        <img src="https://img.freepik.com/free-psd/barcode-illustration-isolated_23-2150584086.jpg?uid=R186848200&ga=GA1.1.1667496693.1742649100&semt=ais_hybrid&w=740" alt="" class="w-32">
+      </div>
 
-    <div v-if="shipmentData && !error" class="mt-6 absolute top-27 right-1">
-      <SuccessComponent :message="'Shipment Found!'" />
+      <!-- Footer with signature and date -->
+      <div class="mt-8 text-center text-gray-600 relative">
+        <img src="/images/signature.png" alt="" class="w-32 absolute -bottom-5 left-16">
+        <div class="flex justify-between text-sm">
+          <p>Signature: ______________________</p>
+          <p>Date: {{ currentDate }}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-center items-center mt-8">
+        <!-- PDF Generation Button -->
+        <button @click="generatePdf" class="mt-4 bg-orange-600 text-white px-6 py-2 font-semibold hover:bg-orange-700 transition-all">
+          Print Receipt
+        </button>
+      </div>
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getApp } from 'firebase/app';
+import JsBarcode from 'jsbarcode';
 
 // Import your components
 import ErrorComponent from '@/components/ErrorComponent.vue';
 import SuccessComponent from '@/components/SuccessComponent.vue';
 
+// Firebase configuration and initialization
 const db = getFirestore(getApp());
 
 const trackingId = ref('');
 const shipmentData = ref(null);
 const error = ref('');
 const isLoading = ref(false);
+const currentDate = ref(new Date().toLocaleDateString());
 
+// Tracking shipment
 const trackShipment = async () => {
   isLoading.value = true;
   error.value = ''; // Reset error at the beginning of the search
@@ -117,8 +151,12 @@ const trackShipment = async () => {
                 foundShipment = data;
               }
             });
+          } else {
+            console.warn("⚠️ No fields in box:", box);
           }
         });
+      } else {
+        console.warn("⚠️ No boxes in shipment:", data);
       }
     });
 
@@ -146,6 +184,40 @@ const trackShipment = async () => {
     }, 3000);
   } finally {
     isLoading.value = false;
+  }
+};
+
+// Generate barcode when tracking ID is available
+onMounted(() => {
+  if (trackingId.value.trim()) {
+    JsBarcode($refs.barcode, trackingId.value.trim(), {
+      format: 'CODE128',
+      displayValue: true
+    });
+  }
+});
+
+// Create reference to the receipt element
+const receiptRef = ref(null);
+
+// Generate PDF using html2pdf (Only in the client-side)
+const generatePdf = async () => {
+  if (process.client) {
+    const { default: html2pdf } = await import('html2pdf.js');
+
+    const options = {
+      filename: `Shipment_Receipt_${trackingId.value.trim()}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 4 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    // Access the receipt via the reference and generate the PDF
+    if (receiptRef.value) {
+      html2pdf().from(receiptRef.value).set(options).save();
+    } else {
+      console.error("Receipt not found for PDF generation.");
+    }
   }
 };
 </script>

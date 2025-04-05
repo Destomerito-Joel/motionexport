@@ -7,7 +7,7 @@
             Plugging into better customer experiences
           </h2>
           <p class="mt-4 text-gray-600 text-lg">
-            Motion Experts is  a company focused on 
+            Motion Celerity is  a company focused on 
             providing the best shipping and fulfillment solutions for you and your business. 
             Their team of shipping experts helps keep your customers satisfied — whether 
             they’re down the street or across the globe.

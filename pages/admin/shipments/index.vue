@@ -128,10 +128,27 @@ const fetchShipments = async () => {
 // Copy tracking number to clipboard
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(() => {
-    alert("Tracking number copied to clipboard!");
+    showCopyNotification();  // Call the function to show a notification
   }).catch(() => {
     alert("Failed to copy tracking number.");
   });
+};
+
+// Show a notification indicating the number was copied
+const showCopyNotification = () => {
+  const notification = document.createElement("div");
+  notification.textContent = "Tracking number copied!";
+  notification.classList.add("notification", "fade-in");
+
+  document.body.appendChild(notification);
+
+  // Remove the notification after 3 seconds
+  setTimeout(() => {
+    notification.classList.add("fade-out");
+    setTimeout(() => {
+      notification.remove();
+    }, 500); // Allow time for fade-out animation
+  }, 3000);
 };
 
 // Open Delete Modal
@@ -179,6 +196,48 @@ onMounted(fetchShipments);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Notification Styles */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 </style>
