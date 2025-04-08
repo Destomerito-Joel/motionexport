@@ -11,25 +11,29 @@
 </template>
 
 <script setup>
-// import { onMounted } from 'vue';
+import { onMounted } from 'vue';
 import Navbar from '~/components/Navbar.vue';
 import Footer from '~/components/Footer.vue';
 
-// onMounted(() => {
-//   console.log("Smartsupp script is running...");
+onMounted(() => {
+  console.log("Smartsupp script is running...");
 
-//   if (process.client) {
-//     window._smartsupp = window._smartsupp || {};
-//     window._smartsupp.key = "b7c71abb85c6f6898a3ea4099d4d8b8ce488e2c3"; // Your Smartsupp key
+  if (process.client) {
+    window._smartsupp = window._smartsupp || {};
+    window._smartsupp.key = '416e5236a98f332fa18865d5423e14e0f5dc5161';
 
-//     const script = document.createElement("script");
-//     script.type = "text/javascript";
-//     script.async = true;
-//     script.src = "https://www.smartsuppchat.com/loader.js";
-//     script.onload = () => console.log("Smartsupp loaded on default layout");
-//     document.head.appendChild(script);
-//   }
-// });
+    if (!window.smartsupp) {
+      const s = document.getElementsByTagName('script')[0];
+      const c = document.createElement('script');
+      c.type = 'text/javascript';
+      c.charset = 'utf-8';
+      c.async = true;
+      c.src = 'https://www.smartsuppchat.com/loader.js';
+      s.parentNode.insertBefore(c, s);
+    }
+  }
+});
+
 </script>
 
 <style scoped>
