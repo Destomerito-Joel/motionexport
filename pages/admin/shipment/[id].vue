@@ -19,7 +19,7 @@
               <h3 class="text-xl font-semibold text-gray-50">{{ box.title }}</h3>
             </div>
             <ul class="space-y-3 py-6 px-2">
-              <li v-for="(field, fieldIndex) in box.fields"  :key="fieldIndex" class="flex gap-2 items-center text-gray-700">
+              <li v-for="(field, fieldIndex) in box.fields"  :key="fieldIndex" class="flex gap-2  text-gray-700">
                 <span class="font-medium ">{{ field.title }}:</span>
                 <span 
                   class="text-sm"
