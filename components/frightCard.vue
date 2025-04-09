@@ -19,7 +19,7 @@
 
       <div>
         <p class="text-gray-500">Call Us Anytime</p>
-        <p class=" font-bold text-gray-900">+1 812 755 3999</p>
+        <p class=" font-bold text-gray-900">(510) 810-1025</p>
       </div>
     </div>
 
